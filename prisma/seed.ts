@@ -22,6 +22,23 @@ async function main() {
     create: { nombres: "María", apellidos: "Quispe", correo: "ciudadano@zonaoscura.pe", claveHash, rol: RolUsuario.CIUDADANO, distrito: "Pachacámac" }
   });
 
+  const vecinos = await Promise.all(
+    ["vecino1@zonaoscura.pe", "vecino2@zonaoscura.pe", "vecino3@zonaoscura.pe", "vecino4@zonaoscura.pe"].map((correo, index) =>
+      prisma.usuario.upsert({
+        where: { correo },
+        update: {},
+        create: {
+          nombres: ["Luis", "Rosa", "Carmen", "Diego"][index],
+          apellidos: "Vecinal",
+          correo,
+          claveHash,
+          rol: RolUsuario.CIUDADANO,
+          distrito: ["Pachacámac", "Manchay", "José Gálvez", "Pachacámac"][index]
+        }
+      })
+    )
+  );
+
   const municipal = await prisma.usuario.upsert({
     where: { correo: "municipal@zonaoscura.pe" },
     update: {},
@@ -72,11 +89,12 @@ async function main() {
       }
     });
 
-    for (let index = 0; index < Math.min(confirmaciones, 1); index++) {
+    const usuariosConfirmacion = [ciudadano, ...vecinos].slice(0, Math.min(confirmaciones, vecinos.length + 1));
+    for (const usuario of usuariosConfirmacion) {
       await prisma.confirmacionReporte.upsert({
-        where: { reporteId_usuarioId: { reporteId: reporte.id, usuarioId: ciudadano.id } },
+        where: { reporteId_usuarioId: { reporteId: reporte.id, usuarioId: usuario.id } },
         update: {},
-        create: { reporteId: reporte.id, usuarioId: ciudadano.id }
+        create: { reporteId: reporte.id, usuarioId: usuario.id }
       });
     }
   }

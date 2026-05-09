@@ -26,6 +26,7 @@ export async function crearReporteAction(_: unknown, formData: FormData) {
   try {
     const reporte = await crearReporte(parsed.data, ciudadanoId);
     revalidatePath("/");
+    revalidatePath("/mapa");
     revalidatePath("/reportes");
     redirect(`/reportes/${reporte.id}`);
   } catch {
@@ -37,4 +38,5 @@ export async function confirmarReporteAction(reporteId: string) {
   const usuarioId = await obtenerUsuarioActualId();
   await confirmarReporte(reporteId, usuarioId);
   revalidatePath(`/reportes/${reporteId}`);
+  revalidatePath("/municipal/prioridades");
 }

@@ -2,6 +2,8 @@ import { ReportsTable } from "@/components/reports/ReportsTable";
 import { obtenerReportes } from "@/features/reportes/reporte.service";
 import { reportesDemo } from "@/lib/demoData";
 
+export const dynamic = "force-dynamic";
+
 export default async function ReportesPage() {
   let reportes = reportesDemo;
   try {

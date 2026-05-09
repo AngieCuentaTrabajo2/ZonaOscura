@@ -2,6 +2,8 @@ import { ReportCard } from "@/components/reports/ReportCard";
 import { obtenerReportes } from "@/features/reportes/reporte.service";
 import { reportesDemo } from "@/lib/demoData";
 
+export const dynamic = "force-dynamic";
+
 export default async function MisReportesPage() {
   let reportes = reportesDemo;
   try {

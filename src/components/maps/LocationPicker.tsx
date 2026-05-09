@@ -4,6 +4,12 @@ import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 
+const quickPoints = [
+  { label: "Pachacámac", lat: -12.2296, lng: -76.8614, left: 30, top: 44 },
+  { label: "Manchay", lat: -12.1129, lng: -76.8832, left: 54, top: 30 },
+  { label: "José Gálvez", lat: -12.2015, lng: -76.9348, left: 70, top: 58 }
+];
+
 export function LocationPicker({
   latitud,
   longitud,
@@ -16,13 +22,15 @@ export function LocationPicker({
   const [lat, setLat] = useState(latitud ?? -12.2296);
   const [lng, setLng] = useState(longitud ?? -76.8614);
 
+  function setLocation(nextLat: number, nextLng: number) {
+    setLat(nextLat);
+    setLng(nextLng);
+    onChange?.(nextLat, nextLng);
+  }
+
   function usarUbicacionActual() {
     navigator.geolocation?.getCurrentPosition((position) => {
-      const nextLat = position.coords.latitude;
-      const nextLng = position.coords.longitude;
-      setLat(nextLat);
-      setLng(nextLng);
-      onChange?.(nextLat, nextLng);
+      setLocation(position.coords.latitude, position.coords.longitude);
     });
   }
 
@@ -33,19 +41,48 @@ export function LocationPicker({
           <span className="material-symbols-outlined text-[18px]">my_location</span>
           Detectar ubicación
         </Button>
-        <Input name="latitud" value={lat} onChange={(e) => setLat(Number(e.target.value))} />
-        <Input name="longitud" value={lng} onChange={(e) => setLng(Number(e.target.value))} />
+        <Input
+          name="latitud"
+          value={lat}
+          onChange={(e) => setLocation(Number(e.target.value), lng)}
+          aria-label="Latitud"
+        />
+        <Input
+          name="longitud"
+          value={lng}
+          onChange={(e) => setLocation(lat, Number(e.target.value))}
+          aria-label="Longitud"
+        />
       </div>
-      <button
-        type="button"
-        className="relative h-[240px] w-full overflow-hidden rounded-lg border border-outline-variant bg-surface-variant"
-        onClick={() => onChange?.(lat, lng)}
-      >
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,#d9dadb_1px,transparent_1px),linear-gradient(#d9dadb_1px,transparent_1px)] bg-[size:32px_32px] opacity-80" />
-        <span className="material-symbols-outlined fill absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[40px] text-primary">
-          location_on
-        </span>
-      </button>
+      <div className="relative h-[260px] w-full overflow-hidden rounded-lg border border-outline-variant bg-[#eef4f7]">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.05)_1px,transparent_1px),linear-gradient(rgba(15,23,42,0.05)_1px,transparent_1px)] bg-[size:34px_34px]" />
+        <div className="absolute left-[10%] top-0 h-full w-[8px] rotate-[12deg] bg-white shadow-sm" />
+        <div className="absolute left-[48%] top-[-10%] h-[120%] w-[10px] -rotate-[16deg] bg-white shadow-sm" />
+        <div className="absolute left-0 top-[32%] h-[9px] w-full -rotate-[4deg] bg-white shadow-sm" />
+        <div className="absolute left-0 top-[70%] h-[9px] w-full rotate-[3deg] bg-white shadow-sm" />
+
+        {quickPoints.map((point) => {
+          const active = Math.abs(point.lat - lat) < 0.0001 && Math.abs(point.lng - lng) < 0.0001;
+          return (
+            <button
+              key={point.label}
+              type="button"
+              onClick={() => setLocation(point.lat, point.lng)}
+              className="absolute -translate-x-1/2 -translate-y-full"
+              style={{ left: `${point.left}%`, top: `${point.top}%` }}
+              title={point.label}
+            >
+              <span className={`material-symbols-outlined fill text-[34px] ${active ? "text-amber-500" : "text-primary"}`}>
+                location_on
+              </span>
+            </button>
+          );
+        })}
+
+        <div className="absolute bottom-sm left-sm rounded-lg border border-slate-200 bg-white/92 p-sm text-xs text-on-surface-variant shadow-sm">
+          Selecciona una zona sugerida o usa tu ubicación actual.
+        </div>
+      </div>
     </div>
   );
 }

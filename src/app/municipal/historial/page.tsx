@@ -6,6 +6,8 @@ import { Select } from "@/components/ui/Select";
 import { obtenerReportes } from "@/features/reportes/reporte.service";
 import { reportesDemo } from "@/lib/demoData";
 
+export const dynamic = "force-dynamic";
+
 export default async function HistorialPage() {
   let reportes = reportesDemo.filter((r) => r.estado === "ATENDIDO");
   try {

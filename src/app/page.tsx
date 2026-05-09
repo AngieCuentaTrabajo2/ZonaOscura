@@ -1,8 +1,11 @@
 import { QuickActions } from "@/components/dashboard/QuickActions";
 import { RecentReports } from "@/components/dashboard/RecentReports";
 import { StatsCard } from "@/components/dashboard/StatsCard";
+import { UserStoriesMatrix } from "@/components/dashboard/UserStoriesMatrix";
 import { obtenerMetricasReportes, obtenerReportes } from "@/features/reportes/reporte.service";
 import { reportesDemo } from "@/lib/demoData";
+
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   let metricas = { total: 128, pendientes: 46, atendidos: 72, criticos: 10 };
@@ -77,6 +80,8 @@ export default async function HomePage() {
           <QuickActions />
         </div>
       </div>
+
+      <UserStoriesMatrix />
     </div>
   );
 }

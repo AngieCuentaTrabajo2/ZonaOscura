@@ -6,6 +6,8 @@ import { obtenerDashboardMunicipal } from "@/features/municipal/municipal.servic
 import { obtenerMetricasReportes } from "@/features/reportes/reporte.service";
 import { reportesDemo } from "@/lib/demoData";
 
+export const dynamic = "force-dynamic";
+
 export default async function MunicipalPage() {
   let data: any = { total: 128, pendientes: 46, evaluacion: 22, atendidos: 72, porDistrito: [], ultimos: reportesDemo };
   try {

@@ -6,6 +6,8 @@ import { obtenerReportes } from "@/features/reportes/reporte.service";
 import { reportesDemo } from "@/lib/demoData";
 import { etiquetasTipoProblema } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export default async function MapaPage() {
   let reportes = reportesDemo;
   try {

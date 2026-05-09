@@ -5,6 +5,8 @@ import { Select } from "@/components/ui/Select";
 import { obtenerPrioridadesMunicipales } from "@/features/municipal/prioridad.service";
 import { reportesDemo } from "@/lib/demoData";
 
+export const dynamic = "force-dynamic";
+
 export default async function InformesPage() {
   let reportes: any[] = reportesDemo.map((reporte) => ({ ...reporte, _count: { confirmaciones: 5 } }));
   try {
