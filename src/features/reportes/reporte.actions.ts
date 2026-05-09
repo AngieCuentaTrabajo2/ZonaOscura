@@ -7,6 +7,7 @@ import { reporteSchema } from "@/features/reportes/reporte.schema";
 import { crearReporte, confirmarReporte } from "@/features/reportes/reporte.service";
 import { authOptions } from "@/features/auth/auth.config";
 import { prisma } from "@/lib/prisma";
+import { actualizarEstadoReporte } from "@/features/municipal/municipal.service";
 
 async function obtenerUsuarioActualId() {
   const session = await getServerSession(authOptions);
@@ -35,8 +36,42 @@ export async function crearReporteAction(_: unknown, formData: FormData) {
 }
 
 export async function confirmarReporteAction(reporteId: string) {
-  const usuarioId = await obtenerUsuarioActualId();
-  await confirmarReporte(reporteId, usuarioId);
-  revalidatePath(`/reportes/${reporteId}`);
-  revalidatePath("/municipal/prioridades");
+  try {
+    const usuarioId = await obtenerUsuarioActualId();
+    await confirmarReporte(reporteId, usuarioId);
+    revalidatePath(`/reportes/${reporteId}`);
+    revalidatePath("/municipal/prioridades");
+    revalidatePath("/");
+  } catch {
+    return;
+  }
+}
+
+export async function actualizarEstadoReporteAction(reporteId: string, formData: FormData) {
+  const estadoNuevo = String(formData.get("estadoNuevo"));
+  const nota = String(formData.get("nota") ?? "");
+  if (!["PENDIENTE", "EN_EVALUACION", "EN_PROCESO", "ATENDIDO", "RECHAZADO"].includes(estadoNuevo)) return;
+
+  try {
+    const session = await getServerSession(authOptions);
+    const municipal = session?.user?.id
+      ? { id: session.user.id }
+      : await prisma.usuario.findFirst({ where: { rol: { in: ["MUNICIPAL", "ADMIN"] } }, select: { id: true } });
+    if (!municipal?.id) return;
+
+    await actualizarEstadoReporte({
+      reporteId,
+      cambiadoPorId: municipal.id,
+      funcionarioAsignadoId: municipal.id,
+      estadoNuevo: estadoNuevo as any,
+      nota: nota || "Estado actualizado desde el panel municipal."
+    });
+    revalidatePath(`/reportes/${reporteId}`);
+    revalidatePath("/municipal");
+    revalidatePath("/municipal/historial");
+    revalidatePath("/municipal/prioridades");
+    revalidatePath("/reportes");
+  } catch {
+    return;
+  }
 }

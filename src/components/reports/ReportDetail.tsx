@@ -2,8 +2,8 @@ import type { Prisma } from "@prisma/client";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { ReportStatusBadge } from "@/components/reports/ReportStatusBadge";
-import { confirmarReporteAction } from "@/features/reportes/reporte.actions";
-import { SimulatedMap } from "@/components/maps/SimulatedMap";
+import { confirmarReporteAction, actualizarEstadoReporteAction } from "@/features/reportes/reporte.actions";
+import { ReportLocationMap } from "@/components/maps/ReportLocationMap";
 import { etiquetasTipoProblema, formatearFechaHora } from "@/lib/utils";
 
 type ReporteDetalle = Prisma.ReporteZonaOscuraGetPayload<{
@@ -17,6 +17,8 @@ type ReporteDetalle = Prisma.ReporteZonaOscuraGetPayload<{
     funcionarioAsignado: true;
   };
 }>;
+
+const timeline = ["PENDIENTE", "EN_EVALUACION", "EN_PROCESO", "ATENDIDO"];
 
 export function ReportDetail({ reporte }: { reporte: ReporteDetalle }) {
   return (
@@ -81,9 +83,12 @@ export function ReportDetail({ reporte }: { reporte: ReporteDetalle }) {
               <span className="text-right">{reporte.funcionarioAsignado?.nombres ?? "Por asignar"}</span>
             </div>
           </div>
+          <Timeline estado={reporte.estado} />
           <div className="mt-md">
-            <SimulatedMap reportes={[reporte]} selectedId={reporte.id} compact />
+            <ReportLocationMap reporte={reporte} />
           </div>
+          <MunicipalStatusForm reporteId={reporte.id} estadoActual={reporte.estado} />
+
           <h3 className="mt-md font-subtitulo text-subtitulo">Historial de eventos</h3>
           <div className="mt-md space-y-md border-l-2 border-surface-container-highest pl-md">
             {reporte.historialEstados.length ? (
@@ -110,6 +115,41 @@ export function ReportDetail({ reporte }: { reporte: ReporteDetalle }) {
           </div>
         </Card>
       </aside>
+    </div>
+  );
+}
+
+function MunicipalStatusForm({ reporteId, estadoActual }: { reporteId: string; estadoActual: string }) {
+  return (
+    <form action={actualizarEstadoReporteAction.bind(null, reporteId)} className="mt-md rounded-lg border border-outline-variant bg-white p-md">
+      <p className="font-etiqueta text-etiqueta font-semibold uppercase text-on-surface-variant">Acción municipal</p>
+      <div className="mt-sm grid grid-cols-1 gap-sm">
+        <select name="estadoNuevo" defaultValue={estadoActual} className="h-10 rounded-lg border border-outline-variant bg-surface-container-lowest px-md text-primary">
+          <option value="PENDIENTE">Pendiente</option>
+          <option value="EN_EVALUACION">En evaluación</option>
+          <option value="EN_PROCESO">En proceso</option>
+          <option value="ATENDIDO">Atendido</option>
+          <option value="RECHAZADO">Rechazado</option>
+        </select>
+        <input name="nota" className="h-10 rounded-lg border border-outline-variant bg-surface-container-lowest px-md text-primary" placeholder="Nota de intervención o evaluación" />
+        <Button type="submit" variante="secundario">
+          <span className="material-symbols-outlined text-[20px]">sync_alt</span>
+          Actualizar estado
+        </Button>
+      </div>
+    </form>
+  );
+}
+
+function Timeline({ estado }: { estado: string }) {
+  const currentIndex = Math.max(0, timeline.indexOf(estado));
+  return (
+    <div className="mt-md grid grid-cols-4 gap-xs">
+      {timeline.map((item, index) => (
+        <div key={item} className={`rounded-lg border p-sm text-center text-xs font-semibold ${index <= currentIndex ? "border-amber-200 bg-amber-50 text-amber-800" : "border-outline-variant bg-white text-on-surface-variant"}`}>
+          {item.replaceAll("_", " ")}
+        </div>
+      ))}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { MunicipalStatsCards } from "@/components/municipal/MunicipalStatsCards";
-import { ReportsTable } from "@/components/reports/ReportsTable";
+import { ReportExplorer } from "@/components/reports/ReportExplorer";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
@@ -33,7 +33,7 @@ export default async function HistorialPage() {
         <Select><option>Todas las intervenciones</option><option>Cambio foco LED</option></Select>
         <Input placeholder="Código o dirección..." />
       </Card>
-      <ReportsTable reportes={reportes} />
+      <ReportExplorer reportes={reportes} />
     </div>
   );
 }

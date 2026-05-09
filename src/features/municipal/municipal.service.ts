@@ -7,7 +7,7 @@ function requerirDatabaseUrl() {
 
 export async function obtenerDashboardMunicipal() {
   requerirDatabaseUrl();
-  const [total, pendientes, evaluacion, atendidos, porDistrito, ultimos] = await Promise.all([
+  const [total, pendientes, evaluacion, atendidos, porDistrito, ultimos, criticos] = await Promise.all([
     prisma.reporteZonaOscura.count(),
     prisma.reporteZonaOscura.count({ where: { estado: EstadoReporte.PENDIENTE } }),
     prisma.reporteZonaOscura.count({ where: { estado: EstadoReporte.EN_EVALUACION } }),
@@ -17,10 +17,11 @@ export async function obtenerDashboardMunicipal() {
       take: 5,
       orderBy: { fechaCreacion: "desc" },
       include: { _count: { select: { confirmaciones: true } } }
-    })
+    }),
+    prisma.reporteZonaOscura.count({ where: { OR: [{ prioridad: "ALTA" }, { nivelRiesgo: "ALTO" }] } })
   ]);
 
-  return { total, pendientes, evaluacion, atendidos, porDistrito, ultimos };
+  return { total, pendientes, evaluacion, atendidos, porDistrito, ultimos, criticos };
 }
 
 export async function actualizarEstadoReporte(data: {

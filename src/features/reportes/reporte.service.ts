@@ -106,11 +106,22 @@ export async function crearReporte(values: ReporteFormValues, ciudadanoId: strin
 
 export async function confirmarReporte(reporteId: string, usuarioId: string) {
   requerirDatabaseUrl();
-  return prisma.confirmacionReporte.upsert({
+  const confirmacion = await prisma.confirmacionReporte.upsert({
     where: { reporteId_usuarioId: { reporteId, usuarioId } },
     update: {},
     create: { reporteId, usuarioId }
   });
+
+  const totalConfirmaciones = await prisma.confirmacionReporte.count({ where: { reporteId } });
+  const reporte = await prisma.reporteZonaOscura.findUnique({ where: { id: reporteId }, select: { nivelRiesgo: true } });
+  if (reporte) {
+    await prisma.reporteZonaOscura.update({
+      where: { id: reporteId },
+      data: { prioridad: calcularPrioridad(reporte.nivelRiesgo, totalConfirmaciones) }
+    });
+  }
+
+  return confirmacion;
 }
 
 export const tipoProblemaOptions: TipoProblema[] = [
