@@ -26,8 +26,8 @@ export default async function MunicipalPage() {
 
   return (
     <div className="flex flex-col gap-xl max-lg:gap-lg">
-      <section className="theme-hero overflow-hidden rounded-2xl border border-slate-800 bg-[linear-gradient(135deg,#111827_0%,#0f172a_52%,#0D1117_100%)] p-lg text-white shadow-[0_18px_48px_rgba(15,23,42,0.18)] max-lg:p-md">
-        <p className="font-etiqueta text-etiqueta font-semibold uppercase text-amber-200">Gestión municipal</p>
+      <section className="theme-hero overflow-hidden rounded-2xl border border-slate-800 bg-[linear-gradient(135deg,#111827_0%,#0f172a_52%,#101827_100%)] p-lg text-white shadow-[0_18px_48px_rgba(15,23,42,0.18)] max-lg:p-md">
+        <p className="theme-accent font-etiqueta text-etiqueta font-semibold uppercase text-amber-200">Gestión municipal</p>
         <h1 className="theme-text-primary mt-xs font-titulo-principal text-titulo-principal text-white max-lg:text-[30px]">Panel municipal</h1>
         <p className="theme-text-muted mt-xs max-w-3xl text-blue-100 max-lg:text-[14px] max-lg:leading-6">
           Indicadores para revisar reportes, evitar duplicidad de intervención y priorizar mantenimiento de alumbrado público.
@@ -38,16 +38,16 @@ export default async function MunicipalPage() {
       <MunicipalInsightBar data={{ ...data, criticos }} />
 
       <div className="grid grid-cols-1 gap-gutter lg:grid-cols-12">
-        <Card className="theme-surface rounded-2xl p-lg max-lg:border-slate-700/70 max-lg:bg-[#111827]/82 max-lg:p-md lg:col-span-5">
-          <h2 className="theme-text-primary font-subtitulo text-subtitulo text-primary max-lg:text-white">Resumen por distrito</h2>
+        <Card className="theme-surface rounded-2xl p-lg max-lg:p-md lg:col-span-5">
+          <h2 className="theme-text-primary font-subtitulo text-subtitulo text-primary">Resumen por distrito</h2>
           <div className="mt-md space-y-md">
             {data.porDistrito.map((item: any) => (
               <div key={item.distrito}>
-                <div className="flex justify-between gap-md text-sm max-lg:text-slate-300">
+                <div className="theme-text-muted flex justify-between gap-md text-sm">
                   <span>{item.distrito}</span>
-                  <strong className="max-lg:text-white">{item._count} reportes</strong>
+                  <strong className="theme-text-primary">{item._count} reportes</strong>
                 </div>
-                <div className="mt-xs h-2 overflow-hidden rounded-full bg-surface-container max-lg:bg-slate-800">
+                <div className="mt-xs h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
                   <div className="h-full rounded-full bg-safety-blue" style={{ width: `${Math.min(100, item._count * 20)}%` }} />
                 </div>
               </div>
@@ -55,13 +55,13 @@ export default async function MunicipalPage() {
           </div>
         </Card>
 
-        <Card className="theme-surface rounded-2xl p-lg max-lg:border-slate-700/70 max-lg:bg-[#111827]/82 max-lg:p-md lg:col-span-3">
-          <h2 className="theme-text-primary font-subtitulo text-subtitulo text-primary max-lg:text-white">Acciones rápidas</h2>
+        <Card className="theme-surface rounded-2xl p-lg max-lg:p-md lg:col-span-3">
+          <h2 className="theme-text-primary font-subtitulo text-subtitulo text-primary">Acciones rápidas</h2>
           <div className="mt-md flex flex-col gap-md">
             <Link className="rounded-xl bg-primary px-md py-sm text-center font-semibold text-on-primary shadow-[0_10px_26px_rgba(15,23,42,0.16)]" href="/municipal/prioridades">
               Ver prioridades
             </Link>
-            <Link className="rounded-xl border border-outline-variant bg-white px-md py-sm text-center font-semibold text-primary hover:bg-surface-container-low" href="/municipal/informes">
+            <Link className="theme-control rounded-xl border border-outline-variant bg-white px-md py-sm text-center font-semibold text-primary hover:bg-surface-container-low" href="/municipal/informes">
               Generar informe
             </Link>
           </div>
@@ -81,7 +81,7 @@ function MunicipalInsightBar({ data }: { data: any }) {
   const atendidoPct = Math.round(((data.atendidos ?? 0) / total) * 100);
 
   return (
-    <section className="theme-surface grid grid-cols-3 gap-xs rounded-2xl border border-white/10 bg-white/[0.05] p-sm shadow-[0_16px_38px_rgba(2,6,23,0.22)] ring-1 ring-white/[0.04] lg:hidden">
+    <section className="theme-surface grid grid-cols-3 gap-xs rounded-2xl border border-white/10 bg-white/[0.05] p-sm ring-1 ring-white/[0.04] lg:hidden">
       <MiniInsight label="Pendiente" value={`${pendientePct}%`} icon="pending_actions" />
       <MiniInsight label="Atendido" value={`${atendidoPct}%`} icon="task_alt" />
       <MiniInsight label="Crítico" value={data.criticos ?? 0} icon="warning" accent />
@@ -91,12 +91,12 @@ function MunicipalInsightBar({ data }: { data: any }) {
 
 function MiniInsight({ label, value, icon, accent = false }: { label: string; value: number | string; icon: string; accent?: boolean }) {
   return (
-    <div className="rounded-xl bg-[#111827]/70 p-sm">
-      <span className={accent ? "material-symbols-outlined text-[18px] text-orange-300" : "material-symbols-outlined text-[18px] text-amber-300"}>
+    <div className="theme-surface rounded-xl bg-[#111827]/70 p-sm">
+      <span className={accent ? "material-symbols-outlined text-[18px] text-orange-400" : "material-symbols-outlined text-[18px] text-blue-500"}>
         {icon}
       </span>
-      <p className="mt-xs text-[18px] font-bold text-white">{value}</p>
-      <p className="text-[11px] font-semibold text-slate-400">{label}</p>
+      <p className="theme-text-primary mt-xs text-[18px] font-bold text-white">{value}</p>
+      <p className="theme-text-muted text-[11px] font-semibold text-slate-400">{label}</p>
     </div>
   );
 }

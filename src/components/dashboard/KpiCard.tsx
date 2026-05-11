@@ -45,11 +45,11 @@ export function KpiCard({ title, value, description, icon, tone = "blue", critic
   return (
     <article
       className={cn(
-        "theme-surface group relative min-h-[132px] overflow-hidden rounded-2xl border p-md shadow-[0_18px_42px_rgba(15,23,42,0.09)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_22px_52px_rgba(15,23,42,0.13)] max-lg:min-h-[112px] max-lg:p-sm",
+        "group relative min-h-[132px] overflow-hidden rounded-2xl border p-md shadow-[0_18px_42px_rgba(15,23,42,0.09)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_22px_52px_rgba(15,23,42,0.13)] max-lg:min-h-[112px] max-lg:p-sm",
         critical
-          ? "border-amber-300/45 bg-[linear-gradient(135deg,#101827_0%,#0D1117_52%,#05070D_100%)] text-white ring-1 ring-white/[0.05]"
+          ? "theme-critical border-amber-300/45 bg-[linear-gradient(135deg,#101827_0%,#0f172a_52%,#101827_100%)] text-white ring-1 ring-white/[0.05]"
           : cn(
-              "border-white/90 bg-gradient-to-br ring-1 ring-slate-200/70 max-lg:border-slate-800/90 max-lg:from-[#121A29] max-lg:via-[#0F1724] max-lg:to-[#0A0F1A] max-lg:ring-white/[0.05]",
+              "theme-surface border-white/90 bg-gradient-to-br ring-1 ring-slate-200/70 max-lg:border-slate-800/90 max-lg:from-[#121A29] max-lg:via-[#0F1724] max-lg:to-[#0A0F1A] max-lg:ring-white/[0.05]",
               styles.card
             )
       )}
@@ -71,7 +71,7 @@ export function KpiCard({ title, value, description, icon, tone = "blue", critic
         </div>
 
         <div>
-          <p className={cn("theme-text-primary font-titulo-principal text-[36px] leading-none tracking-normal max-lg:text-[28px]", critical ? "text-orange-300" : cn(styles.value, "max-lg:text-white"))}>
+          <p className={cn("font-titulo-principal text-[36px] leading-none tracking-normal max-lg:text-[28px]", critical ? "text-orange-300" : cn("theme-text-primary", styles.value, "max-lg:text-white"))}>
             {value}
           </p>
           <p className={cn("theme-text-muted mt-xs text-sm leading-5 max-lg:text-[12px] max-lg:leading-4", critical ? "text-slate-300" : "text-on-surface-variant max-lg:text-slate-400")}>
