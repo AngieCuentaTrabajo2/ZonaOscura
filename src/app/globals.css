@@ -36,11 +36,20 @@ body {
 }
 
 @media (max-width: 1023px) {
+  body {
+    background:
+      radial-gradient(circle at 18% 0%, rgba(245, 158, 11, 0.12), transparent 18rem),
+      radial-gradient(circle at 100% 10%, rgba(37, 99, 235, 0.14), transparent 22rem),
+      linear-gradient(180deg, #0d1117 0%, #0b1220 48%, #080c14 100%);
+    color: #e5edf8;
+  }
+
   .app-grid-bg {
     background-image:
-      linear-gradient(rgba(15, 23, 42, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(15, 23, 42, 0.025) 1px, transparent 1px),
-      radial-gradient(circle at 20% 0%, rgba(37, 99, 235, 0.08), transparent 18rem);
+      linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.055) 1px, transparent 1px),
+      radial-gradient(circle at 20% 0%, rgba(37, 99, 235, 0.12), transparent 18rem);
+    background-color: #0d1117;
     background-size: 28px 28px, 28px 28px, auto;
   }
 }

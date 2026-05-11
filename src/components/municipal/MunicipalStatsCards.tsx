@@ -6,7 +6,7 @@ export function MunicipalStatsCards({
   data: { total: number; pendientes: number; evaluacion?: number; atendidos: number; criticos?: number };
 }) {
   return (
-    <div className="grid grid-cols-1 gap-gutter md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-sm md:grid-cols-2 lg:grid-cols-4 lg:gap-gutter">
       <KpiCard
         title="Reportes recibidos"
         value={data.total}

@@ -9,9 +9,7 @@ export function Header({ usuario = "Jhan Pérez", onSearch }: HeaderProps) {
   return (
     <header className="sticky top-0 z-10 hidden h-[76px] w-full shrink-0 items-center justify-between border-b border-slate-200/80 bg-white/90 px-lg shadow-sm backdrop-blur lg:flex">
       <div className="relative w-full max-w-md">
-        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-safety-blue">
-          search
-        </span>
+        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-safety-blue">search</span>
         <input
           className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-2 pl-10 font-texto-general text-texto-general text-on-surface placeholder:text-slate-400 focus:border-safety-blue focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
           placeholder="Buscar reportes, zonas o usuarios..."
