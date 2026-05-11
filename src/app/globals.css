@@ -29,10 +29,8 @@ body {
 }
 
 .app-grid-bg {
-  background-image:
-    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image: none;
+  background-size: auto;
 }
 
 @media (max-width: 1023px) {
@@ -138,11 +136,8 @@ html[data-theme="dark"] body {
 
 html[data-theme="dark"] .app-grid-bg {
   background-color: #0f172a;
-  background-image:
-    linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.055) 1px, transparent 1px),
-    radial-gradient(circle at 20% 0%, rgba(37, 99, 235, 0.12), transparent 18rem);
-  background-size: 28px 28px, 28px 28px, auto;
+  background-image: radial-gradient(circle at 20% 0%, rgba(37, 99, 235, 0.12), transparent 18rem);
+  background-size: auto;
 }
 
 html[data-theme="dark"] .theme-hero {
@@ -228,10 +223,8 @@ html[data-theme="light"] body {
 
 html[data-theme="light"] .app-grid-bg {
   background-color: #f4f7fb;
-  background-image:
-    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image: none;
+  background-size: auto;
 }
 
 html[data-theme="light"] .theme-hero {
@@ -285,6 +278,48 @@ html[data-theme="light"] .theme-mobile-nav {
   border-color: rgba(203, 213, 225, 0.95) !important;
   background: rgba(255, 255, 255, 0.94) !important;
   box-shadow: 0 -14px 34px rgba(15, 23, 42, 0.14) !important;
+}
+
+html[data-theme="light"] .theme-detail-link {
+  border-color: #cbd5e1 !important;
+  background: #f8fafc !important;
+  color: #10213f !important;
+}
+
+html[data-theme="light"] .theme-badge-high {
+  background: #ffedd5 !important;
+  color: #c2410c !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="light"] .theme-badge-medium {
+  background: #dbeafe !important;
+  color: #1d4ed8 !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="light"] .theme-badge-low {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="light"] .theme-badge-info {
+  background: #cffafe !important;
+  color: #0e7490 !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="light"] .theme-badge-neutral {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="light"] .theme-badge-danger {
+  background: #ffe4e6 !important;
+  color: #be123c !important;
+  box-shadow: none !important;
 }
 
 .material-symbols-outlined {

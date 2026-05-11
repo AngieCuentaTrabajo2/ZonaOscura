@@ -92,7 +92,7 @@ function DetailLink({ href, dark }: { href: string; dark: boolean }) {
       className={cn(
         "mt-md inline-flex h-10 items-center justify-center gap-xs rounded-xl px-md text-sm font-semibold transition",
         dark
-          ? "border border-white/10 bg-white/[0.07] text-slate-50 hover:bg-white/[0.12]"
+          ? "theme-detail-link border border-white/10 bg-white/[0.07] text-slate-50 hover:bg-white/[0.12]"
           : "border border-slate-200 bg-slate-50 text-primary hover:border-blue-200 hover:bg-blue-50"
       )}
     >
@@ -108,9 +108,9 @@ function PriorityBadge({ prioridad, dark = false }: { prioridad: NivelPrioridad;
     <span
       className={cn(
         "rounded-xl px-sm py-xs text-[12px] font-bold leading-4",
-        prioridad === "ALTA" && (dark ? "bg-orange-400/16 text-orange-100 ring-1 ring-orange-300/30" : "bg-orange-100 text-orange-700"),
-        prioridad === "MEDIA" && (dark ? "bg-blue-400/16 text-blue-100 ring-1 ring-blue-300/25" : "bg-blue-100 text-blue-700"),
-        prioridad === "BAJA" && (dark ? "bg-emerald-400/14 text-emerald-100 ring-1 ring-emerald-300/25" : "bg-emerald-100 text-emerald-700")
+        prioridad === "ALTA" && (dark ? "theme-badge-high bg-orange-400/16 text-orange-100 ring-1 ring-orange-300/30" : "bg-orange-100 text-orange-700"),
+        prioridad === "MEDIA" && (dark ? "theme-badge-medium bg-blue-400/16 text-blue-100 ring-1 ring-blue-300/25" : "bg-blue-100 text-blue-700"),
+        prioridad === "BAJA" && (dark ? "theme-badge-low bg-emerald-400/14 text-emerald-100 ring-1 ring-emerald-300/25" : "bg-emerald-100 text-emerald-700")
       )}
     >
       {label}
@@ -123,11 +123,11 @@ function StateBadge({ estado, dark = false }: { estado: EstadoReporte; dark?: bo
     <span
       className={cn(
         "rounded-xl px-sm py-xs text-[12px] font-semibold leading-4",
-        estado === "PENDIENTE" && (dark ? "bg-slate-500/28 text-slate-100 ring-1 ring-slate-300/20" : "bg-slate-100 text-slate-700"),
-        estado === "EN_EVALUACION" && (dark ? "bg-blue-500/16 text-blue-100 ring-1 ring-blue-300/25" : "bg-blue-100 text-blue-700"),
-        estado === "EN_PROCESO" && (dark ? "bg-cyan-500/16 text-cyan-100 ring-1 ring-cyan-300/25" : "bg-cyan-100 text-cyan-700"),
-        estado === "ATENDIDO" && (dark ? "bg-emerald-500/16 text-emerald-100 ring-1 ring-emerald-300/25" : "bg-emerald-100 text-emerald-700"),
-        estado === "RECHAZADO" && (dark ? "bg-rose-500/16 text-rose-100 ring-1 ring-rose-300/25" : "bg-rose-100 text-rose-700")
+        estado === "PENDIENTE" && (dark ? "theme-badge-neutral bg-slate-500/28 text-slate-100 ring-1 ring-slate-300/20" : "bg-slate-100 text-slate-700"),
+        estado === "EN_EVALUACION" && (dark ? "theme-badge-medium bg-blue-500/16 text-blue-100 ring-1 ring-blue-300/25" : "bg-blue-100 text-blue-700"),
+        estado === "EN_PROCESO" && (dark ? "theme-badge-info bg-cyan-500/16 text-cyan-100 ring-1 ring-cyan-300/25" : "bg-cyan-100 text-cyan-700"),
+        estado === "ATENDIDO" && (dark ? "theme-badge-low bg-emerald-500/16 text-emerald-100 ring-1 ring-emerald-300/25" : "bg-emerald-100 text-emerald-700"),
+        estado === "RECHAZADO" && (dark ? "theme-badge-danger bg-rose-500/16 text-rose-100 ring-1 ring-rose-300/25" : "bg-rose-100 text-rose-700")
       )}
     >
       {etiquetasEstadoReporte[estado]}

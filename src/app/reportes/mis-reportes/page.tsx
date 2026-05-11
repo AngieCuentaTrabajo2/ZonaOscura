@@ -18,7 +18,7 @@ export default async function MisReportesPage() {
       <section className="theme-hero relative overflow-hidden rounded-[24px] border border-slate-700/70 bg-[linear-gradient(145deg,#111827_0%,#0f172a_52%,#101827_100%)] p-lg text-white shadow-[0_18px_44px_rgba(2,6,23,0.35)] lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:text-primary lg:shadow-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(251,191,36,0.16),transparent_18rem)] lg:hidden" />
         <div className="relative">
-          <p className="mb-xs hidden font-etiqueta text-[12px] font-bold uppercase tracking-wide text-amber-200 lg:block">Seguimiento ciudadano</p>
+          <p className="theme-accent mb-xs hidden font-etiqueta text-[12px] font-bold uppercase tracking-wide text-amber-200 lg:block">Seguimiento ciudadano</p>
           <h1 className="theme-text-primary font-titulo-principal text-[32px] leading-tight text-white lg:text-titulo-principal lg:text-primary">Mis reportes</h1>
           <p className="theme-text-muted mt-xs max-w-sm text-[15px] leading-6 text-slate-300 lg:text-on-surface-variant">
             Seguimiento de las zonas oscuras que has registrado.
@@ -42,9 +42,9 @@ export default async function MisReportesPage() {
 
 function Metric({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-      <p className="text-[20px] font-bold text-white">{value}</p>
-      <p className="text-[11px] font-semibold text-slate-300">{label}</p>
+    <div className="theme-surface rounded-2xl border border-white/10 bg-white/[0.06] p-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+      <p className="theme-text-primary text-[20px] font-bold text-white">{value}</p>
+      <p className="theme-text-muted text-[11px] font-semibold text-slate-300">{label}</p>
     </div>
   );
 }
