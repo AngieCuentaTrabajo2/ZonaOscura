@@ -27,7 +27,7 @@ export function MobileNav() {
   }, [pathname]);
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 grid grid-cols-5 border-t border-white/10 bg-[#0A0F1A]/92 px-xs pb-2 pt-xs shadow-[0_-14px_34px_rgba(2,6,23,0.45)] backdrop-blur-xl lg:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-30 grid grid-cols-5 border-t border-white/10 bg-[#0A0F1A]/90 px-xs pb-2 pt-xs shadow-[0_-14px_34px_rgba(2,6,23,0.45)] backdrop-blur-xl lg:hidden">
       {items.map((item) => {
         const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
         const pending = pendingHref === item.href;
@@ -39,13 +39,14 @@ export function MobileNav() {
             onClick={() => {
               if (!active) setPendingHref(item.href);
             }}
+            aria-current={active ? "page" : undefined}
             className={cn(
-              "relative flex min-h-[58px] flex-col items-center justify-center gap-1 rounded-xl px-1 text-[11px] font-semibold transition-colors",
-              active || pending ? "text-amber-300" : "text-slate-400 hover:text-slate-100"
+              "relative flex min-h-[58px] flex-col items-center justify-center gap-1 rounded-xl px-1 text-[11px] font-semibold transition duration-200",
+              active || pending ? "bg-white/[0.035] text-amber-300" : "text-slate-400 hover:bg-white/[0.025] hover:text-slate-100"
             )}
           >
             {active || pending ? <span className="absolute top-0 h-[3px] w-8 rounded-full bg-amber-300 shadow-[0_0_14px_rgba(252,211,77,0.7)]" /> : null}
-            <span className={cn("material-symbols-outlined text-[22px]", (active || pending) && "fill")}>
+            <span className="material-symbols-outlined text-[22px] font-light">
               {pending ? "hourglass_top" : item.icon}
             </span>
             <span className="leading-tight">{pending ? "..." : item.label}</span>
