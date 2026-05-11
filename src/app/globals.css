@@ -182,6 +182,10 @@ html[data-theme="dark"] .theme-accent {
   color: #fde68a !important;
 }
 
+html[data-theme="dark"] .theme-critical-text {
+  color: #fde68a !important;
+}
+
 html[data-theme="dark"] .theme-tile-blue {
   background: rgba(59, 130, 246, 0.14) !important;
   color: #bfdbfe !important;
@@ -272,6 +276,10 @@ html[data-theme="light"] .theme-text-muted {
 
 html[data-theme="light"] .theme-accent {
   color: #1d4ed8 !important;
+}
+
+html[data-theme="light"] .theme-critical-text {
+  color: #c2410c !important;
 }
 
 html[data-theme="light"] .theme-mobile-nav {

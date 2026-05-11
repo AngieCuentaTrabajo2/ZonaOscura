@@ -83,7 +83,7 @@ export default async function HomePage() {
 function HomePill({ icon, label }: { icon: string; label: string }) {
   return (
     <span className="theme-surface flex items-center gap-sm rounded-xl border border-white/10 bg-white/10 px-md py-sm max-lg:bg-white/[0.08] max-lg:py-[10px]">
-      <span className="material-symbols-outlined text-[18px] text-amber-300">{icon}</span>
+      <span className="theme-accent material-symbols-outlined text-[18px] text-amber-300">{icon}</span>
       <span className="theme-text-primary font-semibold text-white">{label}</span>
     </span>
   );
@@ -92,8 +92,8 @@ function HomePill({ icon, label }: { icon: string; label: string }) {
 function HeroMetric({ value, label, accent = false }: { value: number; label: string; accent?: boolean }) {
   return (
     <div className={accent ? "theme-surface rounded-2xl border border-amber-300/25 bg-amber-400/15 p-md" : "theme-surface rounded-2xl border border-white/10 bg-white/10 p-md"}>
-      <p className={accent ? "text-3xl font-bold text-amber-300 max-lg:text-[28px]" : "theme-text-primary text-3xl font-bold text-white max-lg:text-[28px]"}>{value}</p>
-      <p className={accent ? "mt-xs text-sm font-semibold text-amber-100" : "theme-text-muted mt-xs text-sm text-blue-100"}>{label}</p>
+      <p className={accent ? "theme-critical-text text-3xl font-bold text-amber-300 max-lg:text-[28px]" : "theme-text-primary text-3xl font-bold text-white max-lg:text-[28px]"}>{value}</p>
+      <p className={accent ? "theme-critical-text mt-xs text-sm font-semibold text-amber-100" : "theme-text-muted mt-xs text-sm text-blue-100"}>{label}</p>
     </div>
   );
 }
